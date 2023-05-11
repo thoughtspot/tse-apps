@@ -1,0 +1,165 @@
+
+<html>
+<head>
+<style>
+    .app {
+        height: 100vh;
+        width: 100vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        
+        grid-template-rows: repeat(6, 16.666666666666668% [row-start]);
+        grid-template-areas:
+            
+'header header header header'
+'lefter body body body'
+'lefter body body body'
+'lefter body body body'
+'lefter body body body'
+'footer footer footer footer'
+    
+    }
+    .section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        overflow: auto;
+    }
+
+    .section > * {
+        margin: 10px !important;
+    }
+
+    .canvas-header {
+        grid-area: header;
+        flex-direction: row;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+    }
+    
+    .canvas-lefter {
+        grid-area: lefter;
+        flex-direction: column;
+        background: #fafafa;
+        border-right: 1px solid rgba(5, 5, 5, 0.06);
+        align-items: stretch;
+    }
+    
+    .canvas-body {
+        grid-area: body;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .canvas-body > div[data-testid=tsEmbed] {
+        flex: 1 1 0;
+        height: 100%;
+        margin: 0;
+    }
+    
+    .canvas-righter {
+        grid-area: righter;
+        flex-direction: column;
+        background: #fafafa;
+        border-left: 1px solid rgba(5, 5, 5, 0.06);
+        align-items: stretch;
+    }
+    
+    .canvas-footer {
+        grid-area: footer;
+        flex-direction: row;
+        background: #fafafa;
+    }
+</style>
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/antd@4.24.9/dist/antd.min.css"
+/>
+<script
+    crossorigin
+    src="https://unpkg.com/react@18/umd/react.production.min.js"
+></script>
+<script
+    crossorigin
+    src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+></script>
+<script src="https://unpkg.com/moment@2.29.4/moment.js"></script>
+<script
+    crossorigin
+    src="https://unpkg.com/antd@4.24.9/dist/antd.min.js"
+></script>
+<script
+    crossorigin
+    src="https://unpkg.com/@thoughtspot/visual-embed-sdk@dev/dist/tsembed-react.js"
+></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script>
+  tsembed.init({
+    thoughtSpotHost: "https://embed-1-do-not-delete.thoughtspotdev.cloud",
+    authType: "None",
+  });
+</script>
+<script type="text/jsx">
+  function App() {
+  const [liveboardId, setLiveboardId] = React.useState("d9acab07-d6dc-43b1-bcd0-a47d12b1e512");
+  const liveboardRef = tsembed.useEmbedRef();
+  const footerRef = React.useRef(null);
+
+  const handleYearChange = (date, dateString) => {
+    const startOfYear = new Date(dateString, 0, 1).getTime() / 1000;
+    const endOfYear = new Date(dateString, 11, 31).getTime() / 1000;
+    liveboardRef.current.trigger(tsembed.HostEvent.UpdateRuntimeFilters, [
+      {
+        columnName: "sales date",
+        operator: tsembed.RuntimeFilterOp.BW,
+        values: [startOfYear, endOfYear],
+      },
+    ]);
+  };
+
+  const handleDropdownChange = (value) => {
+    setLiveboardId(value);
+  };
+
+  const handleVizPointClick = ({ data }) => {
+    footerRef.current.innerHTML = JSON.stringify(data.clickedPoint);
+  };
+
+  return (
+    <div className="app">
+      <div className="section canvas-header">
+        <antd.Select defaultValue={liveboardId} id="dropdown" onChange={handleDropdownChange}>
+          <antd.Select.Option value="d9acab07-d6dc-43b1-bcd0-a47d12b1e512">Overall Sales</antd.Select.Option>
+          <antd.Select.Option value="c7366d05-dc19-4aae-8f72-e8acf1d641e1">Store performance</antd.Select.Option>
+        </antd.Select>
+      </div>
+
+      <div className="section canvas-body">
+        <tsembed.LiveboardEmbed
+          id="lb"
+          liveboardId={liveboardId}
+          ref={liveboardRef}
+          onVizPointClick={handleVizPointClick}
+        />
+      </div>
+
+      <div className="section canvas-footer">
+        <div id="footer" ref={footerRef}></div>
+      </div>
+
+      <div className="section canvas-lefter">
+        <antd.DatePicker
+          id="dp"
+          picker="year"
+          onChange={handleYearChange}
+        />
+      </div>
+    </div>
+  );
+}
+  ReactDOM.render(<App />, document.body);
+</script>
+</head>
+<body>
+</body>
+</html>
