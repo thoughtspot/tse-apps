@@ -1,4 +1,3 @@
-
 <html>
 <head>
 <style>
@@ -8,10 +7,9 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         
-        grid-template-rows: repeat(6, 16.666666666666668% [row-start]);
+        grid-template-rows: repeat(5, 20% [row-start]);
         grid-template-areas:
             
-'header header header header'
 'lefter body body body'
 'lefter body body body'
 'lefter body body body'
@@ -101,9 +99,8 @@
 </script>
 <script type="text/jsx">
   function App() {
+  const liveboardRef = React.useRef(null);
   const [liveboardId, setLiveboardId] = React.useState("d9acab07-d6dc-43b1-bcd0-a47d12b1e512");
-  const liveboardRef = tsembed.useEmbedRef();
-  const footerRef = React.useRef(null);
 
   const handleYearChange = (date, dateString) => {
     const startOfYear = new Date(dateString, 0, 1).getTime() / 1000;
@@ -121,38 +118,39 @@
     setLiveboardId(value);
   };
 
-  const handleVizPointClick = ({ data }) => {
-    footerRef.current.innerHTML = JSON.stringify(data.clickedPoint);
+  const handleVizPointClick = (data) => {
+    const footer = document.getElementById("footer");
+    footer.innerHTML = JSON.stringify(data);
   };
 
   return (
     <div className="app">
-      <div className="section canvas-header">
-        <antd.Select defaultValue={liveboardId} id="dropdown" onChange={handleDropdownChange}>
-          <antd.Select.Option value="d9acab07-d6dc-43b1-bcd0-a47d12b1e512">Overall Sales</antd.Select.Option>
-          <antd.Select.Option value="c7366d05-dc19-4aae-8f72-e8acf1d641e1">Store performance</antd.Select.Option>
-        </antd.Select>
-      </div>
-
       <div className="section canvas-body">
         <tsembed.LiveboardEmbed
-          id="lb"
-          liveboardId={liveboardId}
           ref={liveboardRef}
+          liveboardId={liveboardId}
           onVizPointClick={handleVizPointClick}
         />
       </div>
 
       <div className="section canvas-footer">
-        <div id="footer" ref={footerRef}></div>
+        <div id="footer"></div>
       </div>
 
       <div className="section canvas-lefter">
-        <antd.DatePicker
-          id="dp"
-          picker="year"
-          onChange={handleYearChange}
-        />
+        <antd.Select
+          defaultValue="d9acab07-d6dc-43b1-bcd0-a47d12b1e512"
+          id="dropdown"
+          onChange={handleDropdownChange}
+        >
+          <antd.Select.Option value="d9acab07-d6dc-43b1-bcd0-a47d12b1e512">
+            Overall Sales
+          </antd.Select.Option>
+          <antd.Select.Option value="c7366d05-dc19-4aae-8f72-e8acf1d641e1">
+            Store performance
+          </antd.Select.Option>
+        </antd.Select>
+        <antd.DatePicker id="dp" picker="year" onChange={handleYearChange} />
       </div>
     </div>
   );
