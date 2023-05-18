@@ -1,1 +1,50 @@
-{"nodes":{"3jBZn":{"id":"3jBZn","section":"header","query":"a selectbox with the following options:\n\n1. title: Overall Sales\nvalue: d9acab07-d6dc-43b1-bcd0-a47d12b1e512\n\n2. title: Store performance\nvalue: c7366d05-dc19-4aae-8f72-e8acf1d641e1\n\ndefault is \"overall sales\"","name":"dropdown","code":"<Select defaultValue=\"d9acab07-d6dc-43b1-bcd0-a47d12b1e512\" id=\"dropdown\">\n  <Option value=\"d9acab07-d6dc-43b1-bcd0-a47d12b1e512\">Overall Sales</Option>\n  <Option value=\"c7366d05-dc19-4aae-8f72-e8acf1d641e1\">Store performance</Option>\n</Select>"},"mmj0Q":{"id":"mmj0Q","section":"lefter","query":"datepicker with year picker","name":"dp","code":"<DatePicker\n  id=\"dp\"\n  picker=\"year\"\n/>"},"udizq":{"id":"udizq","section":"body","query":"liveboard embed","name":"lb","code":"<LiveboardEmbed id=\"lb\" />"},"j5dtB":{"id":"j5dtB","section":"footer","query":"empty div","name":"footer","code":"<div id=\"footer\"></div>"}},"layout":{"header":["3jBZn"],"body":["udizq"],"footer":["j5dtB"],"lefter":["mmj0Q"],"righter":[]},"thoughtspotHost":"embed-1-do-not-delete.thoughtspotdev.cloud","authType":"None","behaviorQuery":"When a year is selected in the \"dp\", apply a runtime filter on the \"lb\" with that year on the column \"sales date\". The liveboardid of \"lb\" should be the value selected in the dropdown. When a point is clicked on the visualization, print the details of the point in the \"footer\".","name":"lb filter"}
+{
+    "nodes": {
+        "3jBZn": {
+            "id": "3jBZn",
+            "section": "header",
+            "query": "a selectbox with the following options:\n\n1. title: Overall Sales\nvalue: d9acab07-d6dc-43b1-bcd0-a47d12b1e512\n\n2. title: Store performance\nvalue: c7366d05-dc19-4aae-8f72-e8acf1d641e1\n\ndefault is \"overall sales\"",
+            "name": "dropdown",
+            "code": "<Select defaultValue=\"d9acab07-d6dc-43b1-bcd0-a47d12b1e512\" id=\"dropdown\">\n  <Option value=\"d9acab07-d6dc-43b1-bcd0-a47d12b1e512\">Overall Sales</Option>\n  <Option value=\"c7366d05-dc19-4aae-8f72-e8acf1d641e1\">Store performance</Option>\n</Select>"
+        },
+        "mmj0Q": {
+            "id": "mmj0Q",
+            "section": "lefter",
+            "query": "datepicker with year picker",
+            "name": "dp",
+            "code": "<DatePicker\n  id=\"dp\"\n  picker=\"year\"\n/>"
+        },
+        "udizq": {
+            "id": "udizq",
+            "section": "body",
+            "query": "liveboard embed",
+            "name": "lb",
+            "code": "<LiveboardEmbed id=\"lb\" />"
+        },
+        "j5dtB": {
+            "id": "j5dtB",
+            "section": "footer",
+            "query": "empty div",
+            "name": "footer",
+            "code": "<div id=\"footer\"></div>"
+        }
+    },
+    "layout": {
+        "header": [],
+        "body": [
+            "udizq"
+        ],
+        "footer": [
+            "j5dtB"
+        ],
+        "lefter": [
+            "3jBZn",
+            "mmj0Q"
+        ],
+        "righter": []
+    },
+    "thoughtspotHost": "embed-1-do-not-delete.thoughtspotdev.cloud",
+    "authType": "None",
+    "behaviorQuery": "When a year is selected in the \"dp\", apply a runtime filter on the \"lb\" with that year on the column \"sales date\". The liveboardid of \"lb\" should be the value selected in the dropdown. When a point is clicked on the visualization, print the details of the point in the \"footer\".",
+    "name": "lb filter"
+}
