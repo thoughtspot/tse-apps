@@ -1,0 +1,1 @@
+{"nodes":{"_mL3D":{"id":"_mL3D","section":"body","query":"a label which says test","name":"test","code":"<React.Fragment>\n  <label htmlFor=\"test\">test</label>\n  <Input id=\"test\" />\n</React.Fragment>"}},"layout":{"header":[],"body":["_mL3D"],"footer":[],"lefter":[],"righter":[]},"thoughtspotHost":"embed-1-do-not-delete.thoughtspotdev.cloud","authType":"None","name":"test1"}
